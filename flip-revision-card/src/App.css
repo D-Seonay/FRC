@@ -62,7 +62,7 @@ html {
   background-color: #4b4f57;
   font: 1em sans-serif;
   color: white;
-  border: #282c34 solid 1px;
+  border: #282c34 solid 3px;
   width: 400px;
   height: 600px;
   border-radius: 10px;
@@ -115,7 +115,7 @@ html {
   
 }
 
-@media screen and (max-width: 7500px) {
+@media screen and (max-width: 750px) {
   .card-container {
     grid-template-columns: repeat(1, 1fr);
   }
