@@ -8,11 +8,8 @@ function App() {
         <h1>Flip Revision Cards</h1>
         <p>Learn to code at home</p>
         <div className="cards">
-          <Cards />
+          <Cards/>
         </div>
-        
-
-
       </header>
     </div>
   );

@@ -28,6 +28,7 @@ function Cards() {
                     className={`card ${card.isFlipped ? 'flipped' : ''}`}
                     onClick={() => handleCardClick(index)}
                 >
+                    <h1>{card.id}</h1>
                     <div className="card-front">
                         <h3>{card.word}</h3>
                     </div>
