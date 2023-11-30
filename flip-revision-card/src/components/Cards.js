@@ -9,14 +9,29 @@ function Cards() {
             id: item.id,
             word: item.word,
             definition: item.definition,
-            favorite: item.favorite === "true",
+            favorite: false,
             isFlipped: false // Ajout de l'état pour indiquer si la carte est retournée ou non
         }))
     );
 
+
+
     const handleCardClick = (index) => {
         const updatedCardData = [...cardData];
         updatedCardData[index].isFlipped = !updatedCardData[index].isFlipped;
+        setCardData(updatedCardData);
+    };
+
+    const handleFavoriteClick = (index) => {
+    
+        const updatedCardData = [...cardData];
+        updatedCardData[index].favorite = !updatedCardData[index].favorite;
+        setCardData(updatedCardData);
+    };
+
+    const handleRemoveFavoriteClick = (index) => {
+        const updatedCardData = [...cardData];
+        updatedCardData[index].favorite = false;
         setCardData(updatedCardData);
     };
 
@@ -35,6 +50,8 @@ function Cards() {
                     <div className="card-back">
                         <h3>{card.definition}</h3>
                     </div>
+                    {card.favorite  === false && <button onClick={() => handleFavoriteClick(index)}>Ajouté des favoris</button>}
+                    {card.favorite && <button onClick={() => handleRemoveFavoriteClick(index)}>Supprimer des favoris</button>}
                 </div>
             ))}
         </div>
