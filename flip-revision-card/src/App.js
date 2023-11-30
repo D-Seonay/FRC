@@ -1,5 +1,6 @@
 import './App.css';
 import Cards from './components/Cards';
+import {favoriteCards, a } from './components/Cards';
 
 function App() {
   return (

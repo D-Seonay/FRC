@@ -10,11 +10,9 @@ function Cards() {
             word: item.word,
             definition: item.definition,
             favorite: false,
-            isFlipped: false // Ajout de l'état pour indiquer si la carte est retournée ou non
+            isFlipped: false
         }))
     );
-
-
 
     const handleCardClick = (index) => {
         const updatedCardData = [...cardData];
@@ -23,7 +21,6 @@ function Cards() {
     };
 
     const handleFavoriteClick = (index) => {
-    
         const updatedCardData = [...cardData];
         updatedCardData[index].favorite = !updatedCardData[index].favorite;
         setCardData(updatedCardData);
@@ -43,22 +40,23 @@ function Cards() {
                     className={`card ${card.isFlipped ? 'flipped' : ''}`}
                     onClick={() => handleCardClick(index)}
                 >
+
                     <h1>{card.id}</h1>
                     <div className="card-front">
                         <h3>{card.word}</h3>
                     </div>
                     <div className="card-back">
                         <h3>{card.definition}</h3>
+
+                            </div>
                         {card.favorite === false ? (
-                        <span onClick={() => handleFavoriteClick(index)}>&#x2661;</span>
-                    ) : (
-                        <span onClick={() => handleRemoveFavoriteClick(index)}>&#x2665;</span>
-                    )}
+                            <span onClick={() => handleFavoriteClick(index)}>&#x2661;</span>
+                        ) : (
+                            <span onClick={() => handleRemoveFavoriteClick(index)}>&#x2665;</span>
+                        )}
                     </div>
-                </div>
             ))}
         </div>
     );
 }
-
 export default Cards;
