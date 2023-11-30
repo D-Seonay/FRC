@@ -49,9 +49,12 @@ function Cards() {
                     </div>
                     <div className="card-back">
                         <h3>{card.definition}</h3>
+                        {card.favorite === false ? (
+                        <span onClick={() => handleFavoriteClick(index)}>&#x2661;</span>
+                    ) : (
+                        <span onClick={() => handleRemoveFavoriteClick(index)}>&#x2665;</span>
+                    )}
                     </div>
-                    {card.favorite  === false && <button onClick={() => handleFavoriteClick(index)}>Ajouté des favoris</button>}
-                    {card.favorite && <button onClick={() => handleRemoveFavoriteClick(index)}>Supprimer des favoris</button>}
                 </div>
             ))}
         </div>

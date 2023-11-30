@@ -98,6 +98,12 @@ html {
   transform: rotateY(180deg);
   transition: ease-in all 1s;
 }
+.card.flipped .card-back span {
+  margin: 10px;
+  font-size: 2.5em;
+  color: #74a8e4
+}
+
 .card.flipped h1 {
   transform: rotateY(180deg);
 }
