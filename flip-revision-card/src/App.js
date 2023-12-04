@@ -1,17 +1,14 @@
-import './App.css';
+// App.js
+import React, { useState } from 'react';
 import Cards from './components/Cards';
-import {favoriteCards, a } from './components/Cards';
+import SearchBar from './components/SearchBar';
 
 function App() {
+  const [search, setSearch] = useState('');
+
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Flip Revision Cards</h1>
-        <p>Learn to code at home</p>
-        <div className="cards">
-          <Cards/>
-        </div>
-      </header>
+      <SearchBar />
     </div>
   );
 }
