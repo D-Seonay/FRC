@@ -1,107 +1,67 @@
-import React, { useState } from 'react';
-import '../App.css';
+import React, { useState, useEffect } from 'react';
 
-function Cards({ search = '' }) {
-    const data = require('../data/data.json');
 
-    const [cardData, setCardData] = useState(
-        data.map(item => ({
-            id: item.id,
-            word: item.word,
-            definition: item.definition,
-            favorite: false,
-            isFlipped: false
-        }))
-    );
+const Cards = () => {
+  const [data, setData] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+  const [flippedCard, setFlippedCard] = useState(null);
 
-    const handleCardClick = (index) => {
-        const updatedCardData = [...cardData];
-        updatedCardData[index].isFlipped = !updatedCardData[index].isFlipped;
-        setCardData(updatedCardData);
-    };
+  useEffect(() => {
+    // Récupération des données depuis le fichier JSON au chargement de la page
+    fetch('../data/data.json')
+      .then((response) => response.json())
+      .then((jsonData) => setData(jsonData))
+      .catch((error) => console.error('Error fetching data', error));
+  }, []);
 
-    const handleFavoriteClick = (index) => {
-        const updatedCardData = [...cardData];
-        updatedCardData[index].favorite = !updatedCardData[index].favorite;
-        setCardData(updatedCardData);
-    };
+  const addToFavorites = (id) => {
+    const favoriteItem = data.find((item) => item.id === id);
+    if (favoriteItem && !favorites.some((fav) => fav.id === id)) {
+      setFavorites([...favorites, favoriteItem]);
+    }
+  };
 
-    const handleRemoveFavoriteClick = (index) => {
-        const updatedCardData = [...cardData];
-        updatedCardData[index].favorite = false;
-        setCardData(updatedCardData);
-    };
+  const removeFromFavorites = (id) => {
+    const updatedFavorites = favorites.filter((fav) => fav.id !== id);
+    setFavorites(updatedFavorites);
+  };
 
-    return (
-        <div className="card-container">
-            {cardData.map((card, index) => (
-                <div
-                    key={card.id}
-                    className={`card ${card.isFlipped ? 'flipped' : ''}`}
-                    onClick={() => handleCardClick(index)}
-                >
-                    <h1>{card.id}</h1>
-                    <div className="card-front">
-                        <h3>{card.word}</h3>
-                    </div>
-                    <div className="card-back">
-                        <h3>{card.definition}</h3>
-                    </div>
-                    {card.favorite === false ? (
-                        <span onClick={() => handleFavoriteClick(index)}>&#x2661;</span>
-                    ) : (
-                        <span onClick={() => handleRemoveFavoriteClick(index)}>&#x2665;</span>
-                    )}
-                </div>
-            ))}
+  const flipCard = (id) => {
+    setFlippedCard(flippedCard === id ? null : id);
+  };
+
+  return (
+    <div className="cardContainer">
+      {data.map((item) => (
+        <div key={item.id} className={`card ${flippedCard === item.id ? 'flipped' : ''}`}>
+          <div className="cardInner" onClick={() => flipCard(item.id)}>
+            <div className="cardFront">
+              <h3>{item.word}</h3>
+              
+              {favorites.some((fav) => fav.id === item.id) ? (
+                <button onClick={() => removeFromFavorites(item.id)}>Retirer des favoris</button>
+              ) : (
+                <button onClick={() => addToFavorites(item.id)}>Ajouter aux favoris</button>
+              )}
+            </div>
+            <div className="cardBack">
+              {/* Contenu du verso de la carte (si nécessaire) */}
+              {/* Exemple : <p>Détails supplémentaires...</p> */}
+              <p>{item.definition}</p>
+            </div>
+          </div>
         </div>
-    );
-}
-
-function CardsSearch({ cards = cardData, search = '' }) {
-    const handleCardClick = (index) => {
-        const updatedCardData = [...cards];
-        updatedCardData[index].isFlipped = !updatedCardData[index].isFlipped;
-        setCardData(updatedCardData);
-    };
-
-    const handleFavoriteClick = (index) => {
-        const updatedCardData = [...cards];
-        updatedCardData[index].favorite = !updatedCardData[index].favorite;
-        setCardData(updatedCardData);
-    };
-
-    const handleRemoveFavoriteClick = (index) => {
-        const updatedCardData = [...cards];
-        updatedCardData[index].favorite = false;
-        setCardData(updatedCardData);
-    };
-
-    return (
-        <div className="card-container">
-            {cards.filter(card => card.word.includes(search)).map((card, index) => (
-                <div
-                    key={card.id}
-                    className={`card ${card.isFlipped ? 'flipped' : ''}`}
-                    onClick={() => handleCardClick(index)}
-                >
-                    <h1>{card.id}</h1>
-                    <div className="card-front">
-                        <h3>{card.word}</h3>
-                    </div>
-                    <div className="card-back">
-                        <h3>{card.definition}</h3>
-                    </div>
-                    {card.favorite === false ? (
-                        <span onClick={() => handleFavoriteClick(index)}>&#x2661;</span>
-                    ) : (
-                        <span onClick={() => handleRemoveFavoriteClick(index)}>&#x2665;</span>
-                    )}
-                </div>
-            ))}
-        </div>
-    );
-}
+      ))}
+      <div className="favorites">
+        <h2>Favoris</h2>
+        <ul>
+          {favorites.map((fav) => (
+            <li key={fav.id}>{fav.title}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
 
 export default Cards;
-export { CardsSearch };
