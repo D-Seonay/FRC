@@ -1,7 +1,10 @@
 .card {
+  display: flex;
   width: 200px;
   height: 300px;
   perspective: 1000px;
+  align-items: center;
+  justify-content: center;
   position: relative;
   margin: 20px;
   transform-style: preserve-3d;
@@ -13,6 +16,7 @@
   height: 100%;
   position: absolute;
   text-align: center;
+  border-radius: 10px;
   transition: transform 0.5s;
   transform-style: preserve-3d;
 }
@@ -26,23 +30,39 @@
   width: 100%;
   height: 100%;
   position: absolute;
+  text-align: center;
+  border-radius: 10px;
   backface-visibility: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start; /* Alignement à gauche */
+  justify-content: space-between; /* Espacement vertical entre les éléments */
+  padding: 20px;
+  box-sizing: border-box; /* Garantit que le padding est inclus dans la taille définie */
   transform-style: preserve-3d;
 }
 
 .cardFront {
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: #f4f3f3;
+  color: #000;
+  border: #000 solid 3px;
 }
 
 .cardBack {
-  background-color: #e0e0e0;
-  color: #333;
+  background-color: #191919;
+  color: #FFF;
+  border: #fff solid 3px;
   transform: rotateY(180deg);
 }
 
 /* Styles pour le texte, les boutons, etc. */
+
+.chapter {
+  align-self: flex-start; /* Alignement chapitre en haut gauche */
+}
+
+.cardNumber {
+  align-self: flex-end; /* Alignement numéro carte en bas droite */
+  font-size: 10px;
+  opacity: 0.8;
+}

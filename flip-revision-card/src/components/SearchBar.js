@@ -36,9 +36,9 @@ const SearchBar = () => {
             key={item.id}
             frontContent={
               <div>
-                <h1>{item.id}</h1>
+                <p> Chaptire {item.chapter}</p>
+                <p>N : {item.id}</p>
                 <h3>{item.word}</h3>
-                <p>{item.chapter}</p>
               </div>
             }
             backContent={
